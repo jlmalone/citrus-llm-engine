@@ -1,0 +1,66 @@
+{
+  "receipts": [
+    {
+      "name": "walmart_basic",
+      "ocr_text": "WAL*MART SUPERCENTER #1234\n123 MAIN ST\nANYTOWN, CA 12345\n12/25/2024 3:45 PM\n\nMILK 2% GAL    $3.99\nBREAD WHEAT    $2.49\nEGGS DOZEN     $4.29\n\nSUBTOTAL      $10.77\nTAX            $0.75\nTOTAL         $11.52\n\nVISA ****1234\nTHANK YOU!",
+      "expected": {
+        "merchant": {
+          "name": "Walmart",
+          "store_number": "1234",
+          "address": "123 Main St, Anytown, CA 12345"
+        },
+        "items_count": 3,
+        "total": 11.52
+      }
+    },
+    {
+      "name": "target_with_categories",
+      "ocr_text": "TARGET #5678\n456 OAK AVE\nSPRINGFIELD, IL 62701\n01/15/2024 10:30 AM\n\nCHICKEN BREAST    $8.99\nORANGE JUICE      $4.49\nSHAMPOO           $6.99\nTOILET PAPER 12PK $15.99\nCHIPS DORITOS     $3.49\n\nSUBTOTAL         $39.95\nTAX               $3.00\nTOTAL            $42.95\n\nMASTERCARD ****5678",
+      "expected": {
+        "merchant": {
+          "name": "Target",
+          "store_number": "5678"
+        },
+        "items_count": 5,
+        "total": 42.95
+      }
+    },
+    {
+      "name": "costco_bulk",
+      "ocr_text": "COSTCO WHOLESALE #123\n789 COMMERCE BLVD\nSEATTLE, WA 98101\n03/10/2024 2:15 PM\n\nKIRKLAND WATER 40PK  $5.99\nROTISSERIE CHICKEN   $4.99\nGAS REGULAR 15.234 GAL @ $3.899  $59.41\n\nSUBTOTAL            $70.39\nTAX                  $0.69\nTOTAL               $71.08\n\nAMEX ****9012",
+      "expected": {
+        "merchant": {
+          "name": "Costco",
+          "store_number": "123"
+        },
+        "items_count": 3,
+        "total": 71.08
+      }
+    },
+    {
+      "name": "starbucks_coffee",
+      "ocr_text": "STARBUCKS #2468\n321 COFFEE LN\nPORTLAND, OR 97201\n06/20/2024 8:45 AM\n\nGRANDE LATTE         $5.45\nBLUEBERRY MUFFIN     $3.95\nBANANA               $1.25\n\nSUBTOTAL            $10.65\nTAX                  $0.95\nTIP                  $2.00\nTOTAL               $13.60\n\nVISA ****3456\nTHANK YOU!",
+      "expected": {
+        "merchant": {
+          "name": "Starbucks",
+          "store_number": "2468"
+        },
+        "items_count": 3,
+        "total": 13.60,
+        "tip": 2.00
+      }
+    },
+    {
+      "name": "messy_ocr",
+      "ocr_text": "W@LMART #9999\n999 M@IN RD\n\nM1LK G@LL0N    3.99\nBRE@D          2.49\nEG6S           4.29\n\nT0T@L         11.52",
+      "expected": {
+        "merchant": {
+          "name": "Walmart",
+          "store_number": "9999"
+        },
+        "items_count": 3,
+        "total": 11.52
+      }
+    }
+  ]
+}
