@@ -1,0 +1,58 @@
+{
+  "walmart_simple": {
+    "ocr_text": "WAL*MART #1234\n123 Main St, Anytown, USA\n12/25/2024 3:45 PM\n\nMILK 2% GAL    $3.99\nBREAD WHEAT    $2.49\nEGGS DOZEN     $4.29\n\nSUBTOTAL      $10.77\nTAX            $0.75\nTOTAL         $11.52\n\nVISA ****1234\nTHANK YOU!",
+    "expected": {
+      "merchant": {
+        "name": "Walmart",
+        "store_number": "1234",
+        "address": "123 Main St, Anytown, USA"
+      },
+      "items_count": 3,
+      "total": 11.52
+    }
+  },
+  "target_complex": {
+    "ocr_text": "TARGET STORE T-0567\n456 Oak Ave\nBoston, MA 02101\n01/15/2025 10:30 AM\n\nGROCERIES\nBANANAS ORGANIC  $2.99\nAPPLES GALA 3LB  $5.49\nSPINACH BABY     $3.99\n\nHOUSEHOLD\nPAPER TOWELS 6PK $12.99\nDISH SOAP        $4.99\n\nSUBTOTAL        $30.45\nTAX (6.25%)      $1.90\nTOTAL           $32.35\n\nDEBIT ****5678\nCHANGE DUE       $0.00",
+    "expected": {
+      "merchant": {
+        "name": "Target",
+        "store_number": "0567"
+      },
+      "items_count": 5,
+      "total": 32.35
+    }
+  },
+  "cvs_pharmacy": {
+    "ocr_text": "CVS/PHARMACY #9876\n789 Elm Street\nSeattle, WA 98101\n02/14/2025 2:15 PM\n\nIBUPROFEN 200MG     $8.99\nVITAMIN C GUMMIES   $12.49\nBAND-AIDS VARIETY   $6.99\nSHAMPOO DOVE        $7.99\n\nSUBTOTAL          $36.46\nTAX                $3.65\nTOTAL             $40.11\n\nEXTRABUCKS EARNED   $5.00\nMASTERCARD ****9012",
+    "expected": {
+      "merchant": {
+        "name": "CVS Pharmacy",
+        "store_number": "9876"
+      },
+      "items_count": 4,
+      "total": 40.11
+    }
+  },
+  "safeway_messy": {
+    "ocr_text": "SAFEWAY #3456\nDATE: 03/01/2025\nTIME: 8:45 PM\n\nMILK 1GAL         3.79\nEGGS LRG          4.29\nBREAD WHT         2.49\nCHEESE CHED       5.99\nYOGURT GRK 4PK    5.49\n\nSUB TOTAL:       22.05\nTAX:              1.54\nTOTAL:           23.59\n\nCASH             25.00\nCHANGE            1.41",
+    "expected": {
+      "merchant": {
+        "name": "Safeway",
+        "store_number": "3456"
+      },
+      "items_count": 5,
+      "total": 23.59
+    }
+  },
+  "staples_office": {
+    "ocr_text": "STAPLES #7890\n321 Business Blvd\n04/10/2025 11:00 AM\n\nPEN SET BLK 12PK    $8.99\nNOTEBOOKS SPIRAL    $12.49\nSTAPLER HEAVY DUTY  $24.99\nPAPER COPY 5 REAM   $39.99\nHIGHLIGHTERS        $6.49\n\nSUBTOTAL           $92.95\nTAX                 $7.44\nTOTAL              $100.39\n\nAMEX ****3456\nREWARDS: $10.00 EARNED",
+    "expected": {
+      "merchant": {
+        "name": "Staples",
+        "store_number": "7890"
+      },
+      "items_count": 5,
+      "total": 100.39
+    }
+  }
+}

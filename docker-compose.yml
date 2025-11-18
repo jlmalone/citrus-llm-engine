@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  citrus-llm-engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: citrus-llm-engine
+    ports:
+      - "8000:8000"
+    environment:
+      # Application Settings
+      - APP_NAME=citrus-llm-engine
+      - LOG_LEVEL=INFO
+
+      # LLM Provider Configuration
+      # Options: lmstudio, ollama, openai
+      - LLM_PROVIDER=${LLM_PROVIDER:-lmstudio}
+      - LLM_MODEL=${LLM_MODEL:-local-model}
+      - LLM_TEMPERATURE=${LLM_TEMPERATURE:-0.1}
+      - LLM_MAX_TOKENS=${LLM_MAX_TOKENS:-2000}
+
+      # LM Studio Settings (default)
+      - LMSTUDIO_BASE_URL=${LMSTUDIO_BASE_URL:-http://host.docker.internal:1234/v1}
+      - LMSTUDIO_API_KEY=${LMSTUDIO_API_KEY:-not-needed}
+
+      # Ollama Settings
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-llama2}
+
+      # OpenAI Settings (fallback)
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4}
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL:-https://api.openai.com/v1}
+
+      # Receipt Extraction Settings
+      - DEFAULT_CURRENCY=${DEFAULT_CURRENCY:-USD}
+      - CONFIDENCE_THRESHOLD=${CONFIDENCE_THRESHOLD:-0.7}
+
+    extra_hosts:
+      # Allow container to access host services (LM Studio, Ollama)
+      - "host.docker.internal:host-gateway"
+
+    volumes:
+      # Optional: mount .env file if you prefer
+      - ./.env:/app/.env:ro
+
+    restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+networks:
+  default:
+    name: citrus-network
+    driver: bridge
