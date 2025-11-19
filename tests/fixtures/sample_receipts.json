@@ -1,0 +1,26 @@
+{
+  "walmart_receipt": {
+    "ocr_text": "WAL*MART #1234\n123 Main St, Anytown USA\n12/25/2024 3:45 PM\n\nMILK 2% GAL    $3.99\nBREAD WHEAT    $2.49\nEGGS DOZEN     $4.29\nBANANAS        $1.99\n\nSUBTOTAL      $12.76\nTAX            $0.89\nTOTAL         $13.65\n\nVISA ****1234\nAPPROVED\nThank you!",
+    "expected_merchant": "Walmart",
+    "expected_total": 13.65,
+    "expected_item_count": 4
+  },
+  "starbucks_receipt": {
+    "ocr_text": "STARBUCKS #5678\n456 Oak Ave\n01/15/2024 8:30 AM\n\nGrande Latte      $4.95\nBlueberry Muffin  $3.45\n\nSubtotal          $8.40\nTax               $0.67\nTotal             $9.07\n\nCard ****5678",
+    "expected_merchant": "Starbucks",
+    "expected_total": 9.07,
+    "expected_item_count": 2
+  },
+  "office_depot_receipt": {
+    "ocr_text": "OFFICE DEPOT\n789 Business Blvd\n02/20/2024\n\nCopy Paper 500ct  $24.99\nBallpoint Pens    $8.99\nStapler           $12.49\nPrinter Ink       $45.99\n\nSubtotal          $92.46\nTax               $7.40\nTotal            $99.86",
+    "expected_merchant": "Office Depot",
+    "expected_total": 99.86,
+    "expected_item_count": 4
+  },
+  "gas_station_receipt": {
+    "ocr_text": "SHELL STATION\n321 Highway 1\n03/10/2024 2:15 PM\n\nUNLEADED\nGallons: 12.5\nPrice/Gal: $3.599\n\nFuel Total:    $44.99\n\nCard Payment\n****9012",
+    "expected_merchant": "Shell",
+    "expected_total": 44.99,
+    "expected_item_count": 1
+  }
+}

@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  citrus-llm-engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: citrus-llm-engine
+    ports:
+      - "8000:8000"
+    environment:
+      # Service Configuration
+      - SERVICE_NAME=citrus-llm-engine
+      - SERVICE_VERSION=1.0.0
+      - ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+
+      # LLM Provider (default: lmstudio)
+      # Options: lmstudio, ollama, openai, anthropic
+      - LLM_PROVIDER=lmstudio
+      - LLM_MODEL=llama-3-8b-instruct
+
+      # LM Studio (connect to host machine)
+      - LMSTUDIO_BASE_URL=http://host.docker.internal:1234/v1
+      - LMSTUDIO_API_KEY=lm-studio
+
+      # Ollama (connect to host machine)
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+      - OLLAMA_MODEL=llama3
+
+      # OpenAI (optional)
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OPENAI_MODEL=gpt-4-turbo-preview
+
+      # Anthropic (optional)
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - ANTHROPIC_MODEL=claude-3-sonnet-20240229
+
+      # OCR Configuration
+      - OCR_ENGINE=ensemble
+      - OCR_PREPROCESSING=true
+      - OCR_CONFIDENCE_THRESHOLD=0.80
+
+      # ML Categorization
+      - ENABLE_AUTO_CATEGORIZATION=true
+      - CATEGORIZATION_CONFIDENCE_THRESHOLD=0.75
+
+      # Tax Assistant
+      - ENABLE_TAX_ASSISTANT=true
+      - DEFAULT_TAX_JURISDICTION=US
+
+      # CORS
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:8080
+    volumes:
+      - ./app:/app/app:ro
+      - ./tests:/app/tests:ro
+    restart: unless-stopped
+    networks:
+      - citrus-network
+
+  # Optional: Ollama service (uncomment if you want Ollama in Docker)
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   container_name: ollama
+  #   ports:
+  #     - "11434:11434"
+  #   volumes:
+  #     - ollama-data:/root/.ollama
+  #   restart: unless-stopped
+  #   networks:
+  #     - citrus-network
+
+networks:
+  citrus-network:
+    driver: bridge
+
+# volumes:
+#   ollama-data:
