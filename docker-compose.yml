@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  citrus-llm-engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: citrus-llm-engine
+    ports:
+      - "8000:8000"
+    environment:
+      # Application
+      - APP_NAME=Citrus LLM Engine
+      - DEBUG=false
+      - LOG_LEVEL=INFO
+
+      # LLM Provider (default: LM Studio)
+      - LLM_PROVIDER=lmstudio
+      - LLM_MODEL=llama-3-8b-instruct
+      - LMSTUDIO_BASE_URL=http://host.docker.internal:1234/v1
+
+      # OCR Configuration
+      - OCR_ENGINES=tesseract,easyocr,paddleocr
+      - OCR_LANGUAGES=eng
+      - OCR_CONFIDENCE_THRESHOLD=0.80
+
+      # ML Categorization
+      - USE_LLM_CATEGORIZATION=true
+
+      # Tax Assistant
+      - TAX_REGIONS=US,CA,GB
+      - TAX_YEAR=2024
+
+      # CORS
+      - ALLOWED_ORIGINS=*
+    volumes:
+      - ./app:/app/app:ro
+      - ./models:/app/models
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - citrus-network
+
+  # Optional: Ollama service (if using Ollama instead of LM Studio)
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   container_name: citrus-ollama
+  #   ports:
+  #     - "11434:11434"
+  #   volumes:
+  #     - ollama-data:/root/.ollama
+  #   networks:
+  #     - citrus-network
+
+networks:
+  citrus-network:
+    driver: bridge
+
+volumes:
+  ollama-data:

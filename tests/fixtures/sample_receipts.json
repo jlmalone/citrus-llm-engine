@@ -1,0 +1,49 @@
+[
+  {
+    "name": "Walmart Grocery Receipt",
+    "ocr_text": "WAL*MART #1234\n123 Main St\nAnytown, USA 12345\n\n12/25/2024 3:45 PM\n\nMILK 2% GAL    $3.99\nBREAD WHEAT    $2.49\nEGGS DOZEN     $4.29\nBANANAS LB     $1.99\n\nSUBTOTAL      $12.76\nTAX            $0.89\nTOTAL         $13.65\n\nVISA ****1234\n\nTHANK YOU!",
+    "expected": {
+      "merchant": "Walmart",
+      "total": 13.65,
+      "item_count": 4
+    }
+  },
+  {
+    "name": "Gas Station Receipt",
+    "ocr_text": "SHELL\nStation #5678\n456 Highway Rd\n\n12/26/2024 8:30 AM\n\nUNLEADED PLUS\nGallons: 12.5\nPrice/Gal: $3.45\n\nFUEL TOTAL    $43.13\n\nCREDIT CARD\n\nTHANK YOU",
+    "expected": {
+      "merchant": "Shell",
+      "total": 43.13,
+      "category": "Transportation"
+    }
+  },
+  {
+    "name": "Restaurant Receipt",
+    "ocr_text": "THE BURGER PLACE\n789 Food Court\n\n12/26/2024 12:15 PM\n\nBURGER DELUXE    $12.99\nFRIES LARGE       $3.99\nSODA MEDIUM       $2.49\n\nSUBTOTAL         $19.47\nTAX               $1.56\nTOTAL            $21.03\n\nTIP              $4.00\nGRAND TOTAL      $25.03\n\nVISA\n\nServer: John\nThank you!",
+    "expected": {
+      "merchant": "The Burger Place",
+      "total": 21.03,
+      "tip": 4.00,
+      "category": "Dining"
+    }
+  },
+  {
+    "name": "Office Supplies Receipt",
+    "ocr_text": "STAPLES\nStore #9012\n321 Business Pkwy\n\n12/27/2024 2:00 PM\n\nPAPER A4 500SHT    $24.99\nPENS BLUE 12PK      $8.49\nSTAPLER             $12.99\nNOTEBOOKS 3PK       $9.99\n\nSUBTOTAL           $56.46\nTAX                 $4.52\nTOTAL              $60.98\n\nDEBIT ****5678\n\nRewards# 123456789\nTHANK YOU!",
+    "expected": {
+      "merchant": "Staples",
+      "total": 60.98,
+      "category": "Business",
+      "tax_deductible": true
+    }
+  },
+  {
+    "name": "Coffee Shop Receipt",
+    "ocr_text": "STARBUCKS COFFEE\n555 Main Street\n\n12/28/2024 7:45 AM\n\nLATTE GRANDE       $4.95\nCROISSANT          $3.25\n\nSUBTOTAL           $8.20\nTAX                $0.66\nTOTAL              $8.86\n\nCARD ****9012\n\nTHANKS!",
+    "expected": {
+      "merchant": "Starbucks",
+      "total": 8.86,
+      "category": "Dining"
+    }
+  }
+]
